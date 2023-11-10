@@ -1,5 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { GUIDE_MESSAGE } from '../constants/constants.js'
+import FormatNumbers from '../lib/FormatNumbers.js'
 
 const OutputView = {
   printMenu(menus) {
@@ -17,7 +18,7 @@ const OutputView = {
 
   printAmountBeforeDiscount(money) {
     Console.print(GUIDE_MESSAGE.totalAmountBeforeDiscount)
-    Console.print(`${money}원`)
+    Console.print(`${FormatNumbers.formatWithComma(money)}원`)
   },
 
   printBonusMenu() {
