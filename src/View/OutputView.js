@@ -21,8 +21,9 @@ const OutputView = {
     Console.print(`${FormatNumbers.formatWithComma(money)}원`)
   },
 
-  printBonusMenu() {
+  printBonusMenu(isValid) {
     Console.print(GUIDE_MESSAGE.bonusMenu)
+    Console.print(isValid ? '샴페인 1개' : '없음')
   },
 
   printBenefits(list) {
