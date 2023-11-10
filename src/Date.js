@@ -1,4 +1,4 @@
-import Validator from './Validator/Validator.js'
+import DateValidator from './Validator/DateValidator.js'
 
 class Date {
   #date
@@ -9,7 +9,8 @@ class Date {
   }
 
   #validate(number) {
-    Validator.isDateValid(number)
+    this.validator = new DateValidator();
+    this.validator.isDateValid(number)
   }
 
   returnValue() {
