@@ -6,6 +6,7 @@ class App {
   #date
   async run() {
     await this.requestVisitDate();
+    await this.requestOrderMenu();
   }
 
   async requestVisitDate() {
@@ -16,6 +17,11 @@ class App {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestVisitDate();
     }
+  }
+
+  async requestOrderMenu() {
+    const INPUT = await InputView.readMenu();
+    return INPUT
   }
 }
 
