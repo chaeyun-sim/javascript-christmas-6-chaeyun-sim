@@ -1,4 +1,5 @@
 import OutputView from './View/OutputView.js'
+import { MENU } from './constants/constants.js';
 
 class Discount {
   #date;
@@ -44,6 +45,27 @@ class Discount {
     if (this.#date >= 1 && this.#date <= 25) {
       this.#discounts.forChristmas = (this.#date + 9) * 100;
     }
+  }
+
+  calculateDailyDiscount() {
+    const fridays = this.getSaturday().forEach(day => day - 1)
+
+    if (![...this.getSaturday(), ...fridays].includes(this.#date)) {
+      this.#discounts.forDaily = this.getMatchedDessert()
+    }
+  }
+
+  getMatchedDessert() {
+    let discount = 0
+
+    this.#orders.forEach(order => {
+      const dessertNames = MENU.desserts.map(item => item.name)
+      if (dessertNames.includes(order[0])) {
+        discount -= 2023
+      }
+    })
+
+    return discount
   }
 }
 
