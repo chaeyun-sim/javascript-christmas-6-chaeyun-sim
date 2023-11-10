@@ -2,9 +2,9 @@
 
 ## 0. constants 파일 작성
 
-- [ ] GUIDE_MESSAGE
-- [ ] ERROR_MESSAGE
-- [ ] 매직 넘버 상수화<br /><br />
+- [x] GUIDE_MESSAGE
+- [x] ERROR_MESSAGE
+- [x] 매직 넘버 상수화<br /><br />
 
 ## 1. 날짜 및 메뉴 입력 기능
 
