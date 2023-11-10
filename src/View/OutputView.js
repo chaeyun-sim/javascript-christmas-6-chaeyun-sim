@@ -3,6 +3,10 @@ import { GUIDE_MESSAGE } from '../constants/constants.js'
 import FormatNumbers from '../lib/FormatNumbers.js'
 
 const OutputView = {
+  print(message) {
+    Console.print(message)
+  },
+
   printMenu(menus) {
     Console.print(GUIDE_MESSAGE.menuList);
 
@@ -26,10 +30,18 @@ const OutputView = {
     Console.print(isValid ? '샴페인 1개' : '없음')
   },
 
-  printBenefits(list) {
+  printBenefits(list, isEmpty) {
     Console.print(GUIDE_MESSAGE.discountList)
 
-    list.forEach(item => Console.print(`${item.name}: ${item.money}원`))
+    if (!isEmpty) {
+      Object.keys(list).forEach(key => {
+        if (list[key]) {
+          Console.print(`${key}: -${list[key]}원`);
+        }
+      });
+      return;
+    }
+    Console.print('없음')
   },
 
   printTotalBenefitAmount() {

@@ -1,3 +1,4 @@
+import OutputView from './View/OutputView.js';
 import { CHRISTMAS, MENU } from './constants/constants.js';
 
 class Discount {
@@ -11,10 +12,10 @@ class Discount {
     this.#orders = orders;
     this.#total = Number(total);
     this.#discounts = {
-      forChristmas: 0,
-      forDaily: 0,
-      forWeekend: 0,
-      forStarDays: 0,
+      '크리스마스 디데이 할인': 0,
+      '평일 할인': 0,
+      '주말 할인': 0,
+      '특별 할인': 0,
     };
     this.#calculateDiscounts()
   }
@@ -43,19 +44,19 @@ class Discount {
   }
 
   calculateChristmasDiscount() {
-    this.#discounts.forChristmas = (this.#date + 9) * 100;
+    this.#discounts['크리스마스 디데이 할인'] = (this.#date + 9) * 100;
   }
 
   calculateSpecialDiscount() {
-    this.#discounts.forStarDays = 1000;
+    this.#discounts['특별 할인'] = 1000;
   }
 
   calculateDailyDiscount() {
-    this.#discounts.forDaily = this.calculateDiscountForItems(MENU.desserts);
+    this.#discounts['평일 할인'] = this.calculateDiscountForItems(MENU.desserts);
   }
 
   calculateWeekendDiscount() {
-    this.#discounts.forWeekend = this.calculateDiscountForItems(MENU.mains);
+    this.#discounts['주말 할인'] = this.calculateDiscountForItems(MENU.mains);
   }
 
   calculateDiscountForItems(items) {
@@ -65,11 +66,17 @@ class Discount {
       const itemNames = items.map(item => item.name)
 
       if (itemNames.includes(order[0])) {
-        discount -= 2023
+        discount += 2023
       }
     })
 
     return discount
+  }
+
+  printDiscount() {
+    const IS_VALID =
+      this.#total < 10000 || !Object.values(this.#discounts).reduce((a, b) => a + b)
+    OutputView.printBenefits(this.#discounts, IS_VALID)
   }
 }
 

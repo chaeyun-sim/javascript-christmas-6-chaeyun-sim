@@ -3,6 +3,7 @@ import Date from './Date.js'
 import Menu from './Menu.js'
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Discount from './Discount.js';
+import BonusMenu from './BonusMenu.js'
 
 class App {
   #date
@@ -11,6 +12,7 @@ class App {
   async run() {
     await this.requestVisitDate();
     await this.requestOrderMenu();
+    this.requestBonusMenu();
     this.requestBenefitCalculation();
   }
 
@@ -39,9 +41,13 @@ class App {
       await this.requestOrderMenu();
     }
   }
+  requestBonusMenu() {
+    new BonusMenu(this.#total).printBonus()
+  }
 
   requestBenefitCalculation() {
     this.discount = new Discount(this.#date, this.#orders, this.#total);
+    this.discount.printDiscount();
   }
 }
 
