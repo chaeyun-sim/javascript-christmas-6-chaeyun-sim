@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import { GUIDE_MESSAGE } from '../constants/constants'
+import { GUIDE_MESSAGE } from '../constants/constants.js'
 
 const OutputView = {
     printMenu(menus) {
@@ -28,7 +28,7 @@ const OutputView = {
         list.forEach(item => Console.print(`${item.name}: ${item.money}원`))
     },
 
-    printTotalBenefitAmount(money) {
+    printTotalBenefitAmount() {
         Console.print(GUIDE_MESSAGE.totalDiscountAmount)
     },
 
