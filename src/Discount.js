@@ -1,4 +1,3 @@
-import OutputView from './View/OutputView.js'
 import { CHRISTMAS, MENU } from './constants/constants.js';
 
 class Discount {
@@ -11,86 +10,61 @@ class Discount {
     this.#date = Number(date);
     this.#orders = orders;
     this.#total = Number(total);
-    this.isValid = Number(total) > 10000;
     this.#discounts = {
       forChristmas: 0,
       forDaily: 0,
       forWeekend: 0,
       forStarDays: 0,
     };
+    this.#calculateDiscounts()
   }
 
-  getWeekendByDay(dayOfWeek) {
-    const days = [];
-
-    for (let day = 1; day <= 31; day++) {
-      const today = new Date(2023, 11, day);
-      if (today.getDay() === dayOfWeek) {
-        days.push(day);
-      }
+  #calculateDiscounts() {
+    if (this.#date >= 1 && this.#date <= CHRISTMAS) {
+      this.calculateChristmasDiscount();
     }
 
-    return days;
-  }
-  
-  getSunday() {
-    return this.getWeekendByDay(0);
-  }
-
-  getSaturday() {
-    return this.getWeekendByDay(6);
-  }
-
-  getFriday() {
-    return this.getWeekendByDay(5)
+    switch (new Date(2023, 11, this.#date).getDay()) {
+      case 0:
+        this.calculateSpecialDiscount();
+      case 1:
+        if (this.#date === CHRISTMAS) {
+          this.calculateSpecialDiscount();
+        }
+        this.calculateDailyDiscount();
+        break;
+      case 5: case 6:
+        this.calculateWeekendDiscount();
+        break;
+      default:
+        this.calculateDailyDiscount();
+        break;
+    }
   }
 
   calculateChristmasDiscount() {
-    if (this.#date >= 1 && this.#date <= 25) {
-      this.#discounts.forChristmas = (this.#date + 9) * 100;
-    }
-  }
-
-  calculateDailyDiscount() {
-    const WEEKEND_DAYS = [...this.getSaturday(), ...this.getFriday()]
-
-    if (!WEEKEND_DAYS.includes(this.#date)) {
-      this.#discounts.forDaily = this.getMatchedDessert();
-      return;
-    }
-
-    this.#discounts.forWeekend = this.getMatchedMainDishes();
+    this.#discounts.forChristmas = (this.#date + 9) * 100;
   }
 
   calculateSpecialDiscount() {
-    const STAR_DAYS = [...this.getSunday(), CHRISTMAS]
-
-    if (STAR_DAYS.includes(this.#date)) {
-      this.#discounts.forStarDays = 1000;
-    }
+    this.#discounts.forStarDays = 1000;
   }
 
-  getMatchedDessert() {
+  calculateDailyDiscount() {
+    this.#discounts.forDaily = this.calculateDiscountForItems(MENU.desserts);
+  }
+
+  calculateWeekendDiscount() {
+    this.#discounts.forWeekend = this.calculateDiscountForItems(MENU.mains);
+  }
+
+  calculateDiscountForItems(items) {
     let discount = 0
 
     this.#orders.forEach(order => {
-      const dessertNames = MENU.desserts.map(item => item.name)
+      const itemNames = items.map(item => item.name)
 
-      if (dessertNames.includes(order[0])) {
-        discount -= 2023
-      }
-    })
-
-    return discount
-  }
-
-  getMatchedMainDishes() {
-    let discount = 0
-
-    this.#orders.forEach(order => {
-      const mainDishesNames = MENU.mains.map(item => item.name)
-
-      if (mainDishesNames.includes(order[0])) {
+      if (itemNames.includes(order[0])) {
         discount -= 2023
       }
     })
