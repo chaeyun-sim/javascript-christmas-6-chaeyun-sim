@@ -43,7 +43,7 @@ class Menu {
   }
 
   printTotalAmount() {
-    OutputView.printAmountBeforeDiscount()
+    OutputView.printAmountBeforeDiscount(this.#total)
   }
 
   printOrderedMenu(date) {
