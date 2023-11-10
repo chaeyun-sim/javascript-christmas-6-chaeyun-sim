@@ -7,6 +7,7 @@ import Discount from './Discount.js';
 class App {
   #date
   #orders
+  #total
   async run() {
     await this.requestVisitDate();
     await this.requestOrderMenu();
@@ -29,9 +30,10 @@ class App {
 
       this.menu = new Menu(INPUT)
       this.menu.printOrderedMenu(this.#date);
-      this.#orders = this.menu.returnValue();
-
       this.menu.calculateTotalAmount();
+
+      this.#orders = this.menu.returnValue();
+      this.#total = this.menu.returnTotalAmount();
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestOrderMenu();
@@ -39,7 +41,7 @@ class App {
   }
 
   requestBenefitCalculation() {
-    this.discount = new Discount(this.#date, this.#orders);
+    this.discount = new Discount(this.#date, this.#orders, this.#total);
   }
 }
 

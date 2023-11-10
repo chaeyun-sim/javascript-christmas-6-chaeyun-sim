@@ -5,6 +5,7 @@ import CustomError from "./lib/CustomError.js";
 
 class Menu {
   #ordered
+  #total
   #menuNames = Object.values(MENU).flat().map(item => item.name);
   #menuPrice = Object.values(MENU).flat().map(item => item.price);
 
@@ -19,7 +20,7 @@ class Menu {
     this.validator.isMenuValid(ordered, this.#menuNames);
   }
 
-  calculateTotalAmount() {
+  detailCalculation() {
     let total = 0
 
     this.#ordered.forEach(item => {
@@ -33,11 +34,16 @@ class Menu {
       total += map[name] * Number(count)
     })
 
-    this.printTotalAmount(total)
+    return total
   }
 
-  printTotalAmount(total) {
-    OutputView.printAmountBeforeDiscount(total)
+  calculateTotalAmount() {
+    this.#total = this.detailCalculation();
+    this.printTotalAmount()
+  }
+
+  printTotalAmount() {
+    OutputView.printAmountBeforeDiscount()
   }
 
   printOrderedMenu(date) {
@@ -50,6 +56,10 @@ class Menu {
 
   returnValue() {
     return this.#ordered
+  }
+
+  returnTotalAmount() {
+    return this.#total
   }
 }
 
