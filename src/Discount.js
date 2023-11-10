@@ -34,11 +34,15 @@ class Discount {
   }
   
   getSunday() {
-    return getWeekendByDay(0);
+    return this.getWeekendByDay(0);
   }
 
   getSaturday() {
-    return getWeekendByDay(6);
+    return this.getWeekendByDay(6);
+  }
+
+  getFriday() {
+    return this.getWeekendByDay(5)
   }
 
   calculateChristmasDiscount() {
@@ -48,11 +52,14 @@ class Discount {
   }
 
   calculateDailyDiscount() {
-    const fridays = this.getSaturday().forEach(day => day - 1)
-
-    if (![...this.getSaturday(), ...fridays].includes(this.#date)) {
-      this.#discounts.forDaily = this.getMatchedDessert()
+    const WEEKEND_DAYS = [...this.getSaturday(), ...this.getFriday()]
+    
+    if (!WEEKEND_DAYS.includes(this.#date)) {
+      this.#discounts.forDaily = this.getMatchedDessert();
+      return;
     }
+
+    this.#discounts.forWeekend = this.getMatchedMainDishes();
   }
 
   getMatchedDessert() {
@@ -60,7 +67,22 @@ class Discount {
 
     this.#orders.forEach(order => {
       const dessertNames = MENU.desserts.map(item => item.name)
+
       if (dessertNames.includes(order[0])) {
+        discount -= 2023
+      }
+    })
+
+    return discount
+  }
+
+  getMatchedMainDishes() {
+    let discount = 0
+
+    this.#orders.forEach(order => {
+      const mainDishesNames = MENU.mains.map(item => item.name)
+
+      if (mainDishesNames.includes(order[0])) {
         discount -= 2023
       }
     })
