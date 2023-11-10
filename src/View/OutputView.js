@@ -2,43 +2,45 @@ import { Console } from "@woowacourse/mission-utils";
 import { GUIDE_MESSAGE } from '../constants/constants.js'
 
 const OutputView = {
-    printMenu(menus) {
-        Console.print(GUIDE_MESSAGE.menuList);
+  printMenu(menus) {
+    Console.print(GUIDE_MESSAGE.menuList);
 
-        menus.forEach(menu => Console.print(`${menu.name} ${menu.count}개`))
-    },
+    menus.forEach(menu => {
+      const [ name, count ] = menu;
+      Console.print(`${name} ${count}개`)
+    })
+  },
 
-    printPreview(date) {
-        Console.print(`12월 ${date}일${GUIDE_MESSAGE.preview}`)
-    },
+  printPreview(date) {
+    Console.print(`12월 ${date}일${GUIDE_MESSAGE.preview}`)
+  },
 
-    printAmountBeforeDiscount(money) {
-        Console.print(GUIDE_MESSAGE.totalAmountBeforeDiscount)
+  printAmountBeforeDiscount(money) {
+    Console.print(GUIDE_MESSAGE.totalAmountBeforeDiscount)
+    Console.print(`${money}원`)
+  },
 
-        Console.print(`${money}원`)
-    },
+  printBonusMenu() {
+    Console.print(GUIDE_MESSAGE.bonusMenu)
+  },
 
-    printBonusMenu() {
-        Console.print(GUIDE_MESSAGE.bonusMenu)
-    },
+  printBenefits(list) {
+    Console.print(GUIDE_MESSAGE.discountList)
 
-    printBenefits(list) {
-        Console.print(GUIDE_MESSAGE.discountList)
+    list.forEach(item => Console.print(`${item.name}: ${item.money}원`))
+  },
 
-        list.forEach(item => Console.print(`${item.name}: ${item.money}원`))
-    },
+  printTotalBenefitAmount() {
+    Console.print(GUIDE_MESSAGE.totalDiscountAmount)
+  },
 
-    printTotalBenefitAmount() {
-        Console.print(GUIDE_MESSAGE.totalDiscountAmount)
-    },
+  printEstimatedPaymentAmount(){
+    Console.print(GUIDE_MESSAGE.estimatedPaymentAmount)
+  },
 
-    printEstimatedPaymentAmount(){
-        Console.print(GUIDE_MESSAGE.estimatedPaymentAmount)
-    },
-
-    printisBadgeReceived() {
-        Console.print(GUIDE_MESSAGE.eventBadge)
-    }
+  printisBadgeReceived() {
+    Console.print(GUIDE_MESSAGE.eventBadge)
+  }
 }
 
 

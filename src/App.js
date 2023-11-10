@@ -4,6 +4,7 @@ import Menu from './Menu.js'
 import { MissionUtils } from '@woowacourse/mission-utils';
 
 class App {
+  #date
   async run() {
     await this.requestVisitDate();
     await this.requestOrderMenu();
@@ -12,7 +13,7 @@ class App {
   async requestVisitDate() {
     try {
       const INPUT = await InputView.readDate();
-      const DATE = new Date(INPUT).returnValue();
+      this.#date = new Date(INPUT).returnValue();
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestVisitDate();
@@ -22,7 +23,9 @@ class App {
   async requestOrderMenu() {
     try {
       const INPUT = await InputView.readMenu();
-      const ORDERED = new Menu(INPUT).returnValue();
+
+      this.menu = new Menu(INPUT)
+      this.menu.printOrderedMenu(this.#date);
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestOrderMenu();

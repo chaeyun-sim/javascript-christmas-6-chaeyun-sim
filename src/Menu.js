@@ -1,4 +1,5 @@
 import MenuValidator from "./Validator/MenuValidator.js";
+import OutputView from "./View/OutputView.js";
 import { ERROR_MESSAGE, MENU } from "./constants/constants.js";
 import CustomError from "./lib/CustomError.js";
 
@@ -18,12 +19,15 @@ class Menu {
     this.validator.isMenuValid(ordered, this.#menuNames);
   }
 
+  printOrderedMenu(date) {
+    const ORDERED = this.#ordered.map(item => item.split('-'))
+
+    OutputView.printPreview(date)
+    OutputView.printMenu(ORDERED)
+  }
+
   returnValue() {
-    return this.#ordered.map(item => {
-      const [name, count] = item.split('-');
-      const cnt = Number(count);
-      return { name, cnt };
-    })
+    return 
   }
 }
 
