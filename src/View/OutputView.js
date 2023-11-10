@@ -36,7 +36,7 @@ const OutputView = {
     if (!isEmpty) {
       Object.keys(list).forEach(key => {
         if (list[key]) {
-          Console.print(`${key}: -${list[key]}원`);
+          Console.print(`${key}: -${FormatNumbers.formatWithComma(list[key])}원`);
         }
       });
       return;
@@ -44,8 +44,9 @@ const OutputView = {
     Console.print('없음')
   },
 
-  printTotalBenefitAmount() {
+  printTotalBenefitAmount(money) {
     Console.print(GUIDE_MESSAGE.totalDiscountAmount)
+    Console.print(`-${FormatNumbers.formatWithComma(money)}원`)
   },
 
   printEstimatedPaymentAmount(){

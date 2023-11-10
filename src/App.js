@@ -48,6 +48,7 @@ class App {
   requestBenefitCalculation() {
     this.discount = new Discount(this.#date, this.#orders, this.#total);
     this.discount.printDiscount();
+    this.discount.printTotalDiscountAmount();
   }
 }
 

@@ -16,11 +16,16 @@ class Discount {
       '평일 할인': 0,
       '주말 할인': 0,
       '특별 할인': 0,
+      '증정 이벤트': 0
     };
     this.#calculateDiscounts()
   }
 
   #calculateDiscounts() {
+    if (this.#total > 120000) {
+      this.#discounts['증정 이벤트'] = 25000
+    }
+
     if (this.#date >= 1 && this.#date <= CHRISTMAS) {
       this.calculateChristmasDiscount();
     }
@@ -66,7 +71,7 @@ class Discount {
       const itemNames = items.map(item => item.name)
 
       if (itemNames.includes(order[0])) {
-        discount += 2023
+        discount += (2023 * Number(order[1]))
       }
     })
 
@@ -77,6 +82,12 @@ class Discount {
     const IS_VALID =
       this.#total < 10000 || !Object.values(this.#discounts).reduce((a, b) => a + b)
     OutputView.printBenefits(this.#discounts, IS_VALID)
+  }
+
+  printTotalDiscountAmount() {
+    const TOTAL_DISCOUNT = Object.values(this.#discounts).reduce((a, b) => a + b);
+    
+    OutputView.printTotalBenefitAmount(TOTAL_DISCOUNT)
   }
 }
 
