@@ -2,12 +2,15 @@ import InputView from './View/InputView.js'
 import Date from './Date.js'
 import Menu from './Menu.js'
 import { MissionUtils } from '@woowacourse/mission-utils';
+import Discount from './Discount.js';
 
 class App {
   #date
+  #orders
   async run() {
     await this.requestVisitDate();
     await this.requestOrderMenu();
+    this.requestBenefitCalculation();
   }
 
   async requestVisitDate() {
@@ -26,10 +29,17 @@ class App {
 
       this.menu = new Menu(INPUT)
       this.menu.printOrderedMenu(this.#date);
+      this.#orders = this.menu.returnValue();
+
+      this.menu.calculateTotalAmount();
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestOrderMenu();
     }
+  }
+
+  requestBenefitCalculation() {
+    this.discount = new Discount(this.#date, this.#orders);
   }
 }
 
