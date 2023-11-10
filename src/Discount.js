@@ -1,5 +1,5 @@
 import OutputView from './View/OutputView.js'
-import { MENU } from './constants/constants.js';
+import { CHRISTMAS, MENU } from './constants/constants.js';
 
 class Discount {
   #date;
@@ -53,13 +53,21 @@ class Discount {
 
   calculateDailyDiscount() {
     const WEEKEND_DAYS = [...this.getSaturday(), ...this.getFriday()]
-    
+
     if (!WEEKEND_DAYS.includes(this.#date)) {
       this.#discounts.forDaily = this.getMatchedDessert();
       return;
     }
 
     this.#discounts.forWeekend = this.getMatchedMainDishes();
+  }
+
+  calculateSpecialDiscount() {
+    const STAR_DAYS = [...this.getSunday(), CHRISTMAS]
+
+    if (STAR_DAYS.includes(this.#date)) {
+      this.#discounts.forStarDays = 1000;
+    }
   }
 
   getMatchedDessert() {
