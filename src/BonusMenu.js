@@ -4,11 +4,13 @@ import { MIN_AMOUNT_TO_GET_BONUS } from './constants/constants.js';
 class BonusMenu {
   #isValid;
   constructor(total) {
-    this.#isValid = total > MIN_AMOUNT_TO_GET_BONUS;
+    this.#isValid = total >= Number(MIN_AMOUNT_TO_GET_BONUS);
   }
 
   printBonus() {
-    OutputView.printBonusMenu(this.#isValid);
+    const result = this.#isValid ? '샴페인 1개' : '없음';
+    OutputView.printBonusMenu(result);
+    return result;
   }
 }
 

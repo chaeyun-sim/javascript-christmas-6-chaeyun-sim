@@ -33,9 +33,9 @@ const OutputView = {
     this.printFormattedMoney(money);
   },
 
-  printBonusMenu(isValid) {
+  printBonusMenu(message) {
     Console.print(GUIDE_MESSAGE.bonusMenu);
-    Console.print(isValid ? '샴페인 1개' : '없음');
+    Console.print(message);
   },
 
   printBenefits(list, isEmpty) {

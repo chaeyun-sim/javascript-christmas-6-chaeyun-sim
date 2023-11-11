@@ -32,7 +32,7 @@ class DiscountCalculator {
   }
 
   #calculateBonusDiscount(total) {
-    if (total > MIN_AMOUNT_TO_GET_BONUS) {
+    if (total >= MIN_AMOUNT_TO_GET_BONUS) {
       this.#discounts['증정 이벤트'] = 25000;
     }
   }

@@ -36,7 +36,7 @@ class DiscountManager {
     const TOTAL_DISCOUNT = this.calculateTotalDiscount();
     let result = this.#total - TOTAL_DISCOUNT;
 
-    if (this.#total > MIN_AMOUNT_TO_GET_BONUS) {
+    if (this.#total >= MIN_AMOUNT_TO_GET_BONUS) {
       result += 25000;
     }
 
