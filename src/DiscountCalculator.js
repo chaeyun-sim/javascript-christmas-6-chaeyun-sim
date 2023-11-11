@@ -70,11 +70,10 @@ class DiscountCalculator {
   }
 
   #calculateDiscountForItems(items) {
+    const itemNames = items.map(item => item.name);
     let discount = 0;
 
     this.#orders.forEach(order => {
-      const itemNames = items.map(item => item.name);
-
       if (itemNames.includes(order[0])) {
         discount += DAILY_DISCOUNT * Number(order[1]);
       }
