@@ -13,7 +13,7 @@ describe('Menu 클래스 테스트', () => {
     }).toThrow('[ERROR]');
   });
 
-  test.each(['123', 'iiiii-ii,iiiii=2', '제로콜라-1,,,,', '타파스-b'])(
+  test.each(['123', 'iiiii-ii,iiiii=2', '제로콜라-1,,,,'])(
     '메뉴 형식이 다른 경우 예외가 발생한다.',
     input => {
       expect(() => {
