@@ -89,6 +89,16 @@ class Discount {
     
     OutputView.printTotalBenefitAmount(TOTAL_DISCOUNT)
   }
+
+  printAmountAfterDiscount() {
+    const TOTAL_DISCOUNT = Object.values(this.#discounts).reduce((a, b) => a + b);
+    let result = this.#total - TOTAL_DISCOUNT
+    if (this.#total > 1200000) {
+      result += 25000
+    }
+
+    OutputView.printEstimatedPaymentAmount(result)
+  }
 }
 
 export default Discount;

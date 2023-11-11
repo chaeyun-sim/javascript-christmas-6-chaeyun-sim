@@ -7,6 +7,14 @@ const OutputView = {
     Console.print(message)
   },
 
+  printFormattedMoney(money, isDiscount) {
+    if (isDiscount) {
+      Console.print(`-${FormatNumbers.formatWithComma(money)}원`)
+      return;
+    }
+    Console.print(`${FormatNumbers.formatWithComma(money)}원`)
+  },
+
   printMenu(menus) {
     Console.print(GUIDE_MESSAGE.menuList);
 
@@ -22,7 +30,7 @@ const OutputView = {
 
   printAmountBeforeDiscount(money) {
     Console.print(GUIDE_MESSAGE.totalAmountBeforeDiscount)
-    Console.print(`${FormatNumbers.formatWithComma(money)}원`)
+    this.printFormattedMoney(money)
   },
 
   printBonusMenu(isValid) {
@@ -46,11 +54,18 @@ const OutputView = {
 
   printTotalBenefitAmount(money) {
     Console.print(GUIDE_MESSAGE.totalDiscountAmount)
-    Console.print(`-${FormatNumbers.formatWithComma(money)}원`)
+
+    if (Number(money) === 0) {
+      this.print('없음')
+      return;
+    }
+    
+    this.printFormattedMoney(money, true)
   },
 
-  printEstimatedPaymentAmount(){
+  printEstimatedPaymentAmount(money){
     Console.print(GUIDE_MESSAGE.estimatedPaymentAmount)
+    this.printFormattedMoney(money, false)
   },
 
   printisBadgeReceived() {
