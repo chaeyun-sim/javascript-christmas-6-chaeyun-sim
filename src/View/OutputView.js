@@ -56,7 +56,7 @@ const OutputView = {
     Console.print(GUIDE_MESSAGE.totalDiscountAmount)
 
     if (Number(money) === 0) {
-      this.print('없음')
+      this.print(`${money}원`)
       return;
     }
     

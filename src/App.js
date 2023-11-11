@@ -2,9 +2,10 @@ import InputView from './View/InputView.js'
 import Date from './Date.js'
 import Menu from './Menu.js'
 import { MissionUtils } from '@woowacourse/mission-utils';
-import Discount from './Discount.js';
 import BonusMenu from './BonusMenu.js'
 import Badge from './Badge.js'
+import DiscountCalculator from './DiscountCalculator.js';
+import DiscountManager from './DiscountManager.js';
 
 class App {
   #date
@@ -15,7 +16,8 @@ class App {
     await this.requestVisitDate();
     await this.requestOrderMenu();
     this.requestBonusMenu();
-    this.requestBenefitCalculation();
+    this.requestDiscountCalculator();
+    this.requestDiscountManager();
     this.requestDecemberBadge();
   }
 
@@ -48,13 +50,18 @@ class App {
     new BonusMenu(this.#total).printBonus()
   }
 
-  requestBenefitCalculation() {
-    this.discount = new Discount(this.#date, this.#orders, this.#total);
-    this.discount.printDiscount();
-    this.discount.printTotalDiscountAmount();
-    this.discount.printAmountAfterDiscount();
+  requestDiscountCalculator() {
+    new DiscountCalculator(this.#date, this.#orders, this.#total);
+  }
 
-    this.#totalDiscount = this.discount.returnDiscount();
+  requestDiscountManager() {
+    this.manager = new DiscountManager(this.#date, this.#orders, this.#total)
+
+    this.manager.printDiscount();
+    this.manager.printTotalDiscountAmount();
+    this.manager.printAmountAfterDiscount();
+
+    this.#totalDiscount = this.manager.returnDiscount();
   }
 
   requestDecemberBadge() {
