@@ -5,6 +5,7 @@ import { MENU } from './constants/constants.js';
 class Menu {
   #ordered;
   #total;
+  #priceMap;
   #menuNames = Object.values(MENU)
     .flat()
     .map(item => item.name);
@@ -15,6 +16,7 @@ class Menu {
   constructor(ordered) {
     this.#validate(ordered);
     this.#ordered = ordered.split(',');
+    this.#buildPriceMap();
   }
 
   #validate(ordered) {
@@ -22,18 +24,19 @@ class Menu {
     this.validator.isMenuValid(ordered, this.#menuNames);
   }
 
+  #buildPriceMap() {
+    this.#priceMap = this.#menuNames.reduce((acc, cur, idx) => {
+      acc[cur] = this.#menuPrice[idx];
+      return acc;
+    }, {});
+  }
+
   detailCalculation() {
     let total = 0;
 
     this.#ordered.forEach(item => {
       const [name, count] = item;
-
-      const map = this.#menuNames.reduce((acc, cur, idx) => {
-        acc[cur] = this.#menuPrice[idx];
-        return acc;
-      }, {});
-
-      total += map[name] * Number(count);
+      total += this.#priceMap[name] * Number(count);
     });
 
     return total;
