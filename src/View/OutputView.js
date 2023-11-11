@@ -68,8 +68,9 @@ const OutputView = {
     this.printFormattedMoney(money, false)
   },
 
-  printisBadgeReceived() {
+  printReceivedBadge(badge) {
     Console.print(GUIDE_MESSAGE.eventBadge)
+    Console.print(badge)
   }
 }
 

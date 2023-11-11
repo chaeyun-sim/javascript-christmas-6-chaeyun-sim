@@ -4,16 +4,19 @@ import Menu from './Menu.js'
 import { MissionUtils } from '@woowacourse/mission-utils';
 import Discount from './Discount.js';
 import BonusMenu from './BonusMenu.js'
+import Badge from './Badge.js'
 
 class App {
   #date
   #orders
   #total
+  #totalDiscount
   async run() {
     await this.requestVisitDate();
     await this.requestOrderMenu();
     this.requestBonusMenu();
     this.requestBenefitCalculation();
+    this.requestDecemberBadge();
   }
 
   async requestVisitDate() {
@@ -50,6 +53,13 @@ class App {
     this.discount.printDiscount();
     this.discount.printTotalDiscountAmount();
     this.discount.printAmountAfterDiscount();
+
+    this.#totalDiscount = this.discount.returnDiscount();
+  }
+
+  requestDecemberBadge() {
+    this.badge = new Badge(this.#totalDiscount)
+    this.badge.printBadge();
   }
 }
 

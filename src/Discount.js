@@ -84,20 +84,29 @@ class Discount {
     OutputView.printBenefits(this.#discounts, IS_VALID)
   }
 
+  calculateTotalDiscount() {
+    return Object.values(this.#discounts).reduce((a, b) => a + b);
+  }
+
   printTotalDiscountAmount() {
-    const TOTAL_DISCOUNT = Object.values(this.#discounts).reduce((a, b) => a + b);
+    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
     
     OutputView.printTotalBenefitAmount(TOTAL_DISCOUNT)
   }
 
   printAmountAfterDiscount() {
-    const TOTAL_DISCOUNT = Object.values(this.#discounts).reduce((a, b) => a + b);
+    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
     let result = this.#total - TOTAL_DISCOUNT
+
     if (this.#total > 1200000) {
       result += 25000
     }
 
     OutputView.printEstimatedPaymentAmount(result)
+  }
+
+  returnDiscount() {
+    return this.calculateTotalDiscount();
   }
 }
 

@@ -39,12 +39,12 @@ const GUIDE_MESSAGE = Object.freeze({
   discountList: '<혜택 내역>',
   totalDiscountAmount: '<총혜택 금액>',
   estimatedPaymentAmount: '<할인 후 예상 결제 금액>',
-  eventBadge: '<12월 이벤트 뱃지>'
+  eventBadge: '<12월 이벤트 배지>'
 });
 
 const ERROR_MESSAGE = Object.freeze({
-  invalidDate: '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해주세요.',
-  invalidMenu: '[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.'
+  invalidDate: '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.',
+  invalidMenu: '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.'
 })
 
 
