@@ -40,6 +40,10 @@ class MenuValidator {
       if (!item.includes('-')) {
         throw new CustomError(ERROR_MESSAGE.invalidMenu);
       }
+
+      if (!/^[\uAC00-\uD7A3]+-\d+$/) {
+        throw new CustomError(ERROR_MESSAGE.invalidMenu);
+      }
     });
   }
 
