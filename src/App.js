@@ -24,7 +24,7 @@ class App {
   async requestVisitDate() {
     try {
       const INPUT = await InputView.readDate();
-      this.#date = new Date(INPUT).returnValue();
+      this.#date = new Date(INPUT).returnDate();
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)
       await this.requestVisitDate();
@@ -39,7 +39,7 @@ class App {
       this.menu.printOrderedMenu(this.#date);
       this.menu.calculateTotalAmount();
 
-      this.#orders = this.menu.returnValue();
+      this.#orders = this.menu.returnOrdered();
       this.#total = this.menu.returnTotalAmount();
     } catch (error) {
       MissionUtils.Console.print(`${error.message}`)

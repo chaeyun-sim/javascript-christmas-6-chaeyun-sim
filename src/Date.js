@@ -13,7 +13,7 @@ class Date {
     this.validator.isDateValid(number)
   }
 
-  returnValue() {
+  returnDate() {
     return Number(this.#date)
   }
 }

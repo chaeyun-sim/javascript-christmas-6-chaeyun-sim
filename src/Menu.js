@@ -54,7 +54,7 @@ class Menu {
     OutputView.printMenu(ORDERED)
   }
 
-  returnValue() {
+  returnOrdered() {
     return this.#ordered
   }
 
