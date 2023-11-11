@@ -1,65 +1,67 @@
-import MenuValidator from "./Validator/MenuValidator.js";
-import OutputView from "./View/OutputView.js";
-import { ERROR_MESSAGE, MENU } from "./constants/constants.js";
-import CustomError from "./lib/CustomError.js";
+import MenuValidator from './Validator/MenuValidator.js';
+import OutputView from './View/OutputView.js';
+import { MENU } from './constants/constants.js';
 
 class Menu {
-  #ordered
-  #total
-  #menuNames = Object.values(MENU).flat().map(item => item.name);
-  #menuPrice = Object.values(MENU).flat().map(item => item.price);
+  #ordered;
+  #total;
+  #menuNames = Object.values(MENU)
+    .flat()
+    .map(item => item.name);
+  #menuPrice = Object.values(MENU)
+    .flat()
+    .map(item => item.price);
 
   constructor(ordered) {
-    this.#validate(ordered)
-    this.#ordered = ordered.split(',')
+    this.#validate(ordered);
+    this.#ordered = ordered.split(',');
   }
 
-  
   #validate(ordered) {
     this.validator = new MenuValidator();
     this.validator.isMenuValid(ordered, this.#menuNames);
   }
 
   detailCalculation() {
-    let total = 0
+    let total = 0;
 
     this.#ordered.forEach(item => {
       const [name, count] = item;
 
       const map = this.#menuNames.reduce((acc, cur, idx) => {
-        acc[cur] = this.#menuPrice[idx]
-        return acc
-      }, {})
+        acc[cur] = this.#menuPrice[idx];
+        return acc;
+      }, {});
 
-      total += map[name] * Number(count)
-    })
+      total += map[name] * Number(count);
+    });
 
-    return total
+    return total;
   }
 
   calculateTotalAmount() {
     this.#total = this.detailCalculation();
-    this.printTotalAmount()
+    this.printTotalAmount();
   }
 
   printTotalAmount() {
-    OutputView.printAmountBeforeDiscount(this.#total)
+    OutputView.printAmountBeforeDiscount(this.#total);
   }
 
   printOrderedMenu(date) {
-    const ORDERED = this.#ordered.map(item => item.split('-'))
-    this.#ordered = ORDERED
+    const ORDERED = this.#ordered.map(item => item.split('-'));
+    this.#ordered = ORDERED;
 
-    OutputView.printPreview(date)
-    OutputView.printMenu(ORDERED)
+    OutputView.printPreview(date);
+    OutputView.printMenu(ORDERED);
   }
 
   returnOrdered() {
-    return this.#ordered
+    return this.#ordered;
   }
 
   returnTotalAmount() {
-    return this.#total
+    return this.#total;
   }
 }
 

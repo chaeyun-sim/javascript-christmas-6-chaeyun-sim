@@ -1,5 +1,5 @@
-import CustomError from '../lib/CustomError.js'
-import { ERROR_MESSAGE } from '../constants/constants.js'
+import CustomError from '../lib/CustomError.js';
+import { ERROR_MESSAGE } from '../constants/constants.js';
 
 class DateValidator {
   isDateValid(input) {
@@ -9,5 +9,4 @@ class DateValidator {
   }
 }
 
-
-export default DateValidator
+export default DateValidator;

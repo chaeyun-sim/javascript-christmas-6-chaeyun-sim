@@ -1,20 +1,20 @@
-import DateValidator from './Validator/DateValidator.js'
+import DateValidator from './Validator/DateValidator.js';
 
 class Date {
-  #date
+  #date;
 
   constructor(number) {
-    this.#validate(number)
+    this.#validate(number);
     this.#date = number;
   }
 
   #validate(number) {
     this.validator = new DateValidator();
-    this.validator.isDateValid(number)
+    this.validator.isDateValid(number);
   }
 
   returnDate() {
-    return Number(this.#date)
+    return Number(this.#date);
   }
 }
 

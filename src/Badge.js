@@ -1,9 +1,9 @@
-import OutputView from "./View/OutputView.js";
+import OutputView from './View/OutputView.js';
 
 class Badge {
-  #badge = null
+  #badge = null;
   constructor(discount) {
-    this.#grant(discount)
+    this.#grant(discount);
   }
 
   #grant(discount) {
@@ -18,7 +18,7 @@ class Badge {
   }
 
   printBadge() {
-    const badgeMessage = this.#badge ? this.#badge : "없음";
+    const badgeMessage = this.#badge ? this.#badge : '없음';
     OutputView.printReceivedBadge(badgeMessage);
   }
 }

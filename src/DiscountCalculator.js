@@ -1,4 +1,10 @@
-import { MENU, CHRISTMAS, MIN_AMOUNT_TO_GET_BONUS, MIN_DISCOUNT, DAILY_DISCOUNT } from "./constants/constants.js";
+import {
+  MENU,
+  CHRISTMAS,
+  MIN_AMOUNT_TO_GET_BONUS,
+  MIN_DISCOUNT,
+  DAILY_DISCOUNT,
+} from './constants/constants.js';
 
 class DiscountCalculator {
   #date;
@@ -12,22 +18,22 @@ class DiscountCalculator {
       '평일 할인': 0,
       '주말 할인': 0,
       '특별 할인': 0,
-      '증정 이벤트': 0
+      '증정 이벤트': 0,
     };
-    this.#calculateDiscounts(total)
+    this.#calculateDiscounts(total);
   }
 
   #calculateDiscounts(total) {
-    const dayOfWeek = new Date(2023, 11, this.#date).getDay()
+    const dayOfWeek = new Date(2023, 11, this.#date).getDay();
 
     this.#calculateBonusDiscount(total);
-    this.#calculateDiscountByDay(dayOfWeek)
+    this.#calculateDiscountByDay(dayOfWeek);
     this.#calculateChristmasDiscount();
   }
 
   #calculateBonusDiscount(total) {
     if (total > MIN_AMOUNT_TO_GET_BONUS) {
-      this.#discounts['증정 이벤트'] = 25000
+      this.#discounts['증정 이벤트'] = 25000;
     }
   }
 
@@ -54,7 +60,9 @@ class DiscountCalculator {
   }
 
   #calculateDailyDiscount() {
-    this.#discounts['평일 할인'] = this.#calculateDiscountForItems(MENU.desserts);
+    this.#discounts['평일 할인'] = this.#calculateDiscountForItems(
+      MENU.desserts,
+    );
   }
 
   #calculateWeekendDiscount() {
@@ -62,21 +70,21 @@ class DiscountCalculator {
   }
 
   #calculateDiscountForItems(items) {
-    let discount = 0
+    let discount = 0;
 
     this.#orders.forEach(order => {
-      const itemNames = items.map(item => item.name)
+      const itemNames = items.map(item => item.name);
 
       if (itemNames.includes(order[0])) {
-        discount += (DAILY_DISCOUNT * Number(order[1]))
+        discount += DAILY_DISCOUNT * Number(order[1]);
       }
-    })
+    });
 
-    return discount
+    return discount;
   }
 
   returnDiscount() {
-    return this.#discounts
+    return this.#discounts;
   }
 }
 
