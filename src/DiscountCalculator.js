@@ -4,6 +4,7 @@ import {
   MIN_AMOUNT_TO_GET_BONUS,
   MIN_DISCOUNT,
   DAILY_DISCOUNT,
+  MIN_AMOUNT,
 } from './constants/constants.js';
 
 class DiscountCalculator {
@@ -26,9 +27,11 @@ class DiscountCalculator {
   #calculateDiscounts(total) {
     const dayOfWeek = new Date(2023, 11, this.#date).getDay();
 
-    this.#calculateBonusDiscount(total);
-    this.#calculateDiscountByDay(dayOfWeek);
-    this.#calculateChristmasDiscount();
+    if (total >= MIN_AMOUNT) {
+      this.#calculateBonusDiscount(total);
+      this.#calculateDiscountByDay(dayOfWeek);
+      this.#calculateChristmasDiscount();
+    }
   }
 
   #calculateBonusDiscount(total) {
@@ -38,10 +41,13 @@ class DiscountCalculator {
   }
 
   #calculateDiscountByDay(dayOfWeek) {
-    if ([0, 1, 2, 3, 4].includes(dayOfWeek)) {
+    if (dayOfWeek === 0) {
+      this.#calculateDailyDiscount();
+      this.#calculateSpecialDiscount();
+    } else if ([1, 2, 3, 4].includes(dayOfWeek)) {
       this.#calculateDailyDiscount();
 
-      if (this.#date === CHRISTMAS || dayOfWeek === 0) {
+      if (this.#date === CHRISTMAS) {
         this.#calculateSpecialDiscount();
       }
     } else if ([5, 6].includes(dayOfWeek)) {
@@ -75,7 +81,7 @@ class DiscountCalculator {
 
     this.#orders.forEach(order => {
       if (itemNames.includes(order[0])) {
-        discount += DAILY_DISCOUNT * Number(order[1]);
+        discount = DAILY_DISCOUNT * Number(order[1]);
       }
     });
 
