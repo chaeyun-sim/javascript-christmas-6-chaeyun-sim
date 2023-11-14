@@ -37,11 +37,7 @@ class MenuValidator {
 
   checkFormat(input) {
     input.forEach(item => {
-      if (!item.includes('-')) {
-        throw new CustomError(ERROR_MESSAGE.invalidMenu);
-      }
-
-      if (!/^[\uAC00-\uD7A3]+-\d+$/) {
+      if (!item.includes('-') || !/^[\uAC00-\uD7A3]+-\d+$/) {
         throw new CustomError(ERROR_MESSAGE.invalidMenu);
       }
     });

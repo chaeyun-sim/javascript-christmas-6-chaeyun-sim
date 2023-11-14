@@ -1,6 +1,6 @@
 const FormatNumbers = {
   formatWithComma(number) {
-    const NUMBER = typeof number === 'string' ? number : String(number);
+    const NUMBER = String(number);
     let result = '';
     let count = 0;
 

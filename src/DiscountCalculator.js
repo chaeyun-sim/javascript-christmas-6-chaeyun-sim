@@ -41,16 +41,15 @@ class DiscountCalculator {
   }
 
   #calculateDiscountByDay(dayOfWeek) {
-    if (dayOfWeek === 0) {
-      this.#calculateDailyDiscount();
+    if (dayOfWeek === 0 || this.#date === CHRISTMAS) {
       this.#calculateSpecialDiscount();
-    } else if ([1, 2, 3, 4].includes(dayOfWeek)) {
-      this.#calculateDailyDiscount();
+    }
 
-      if (this.#date === CHRISTMAS) {
-        this.#calculateSpecialDiscount();
-      }
-    } else if ([5, 6].includes(dayOfWeek)) {
+    if (dayOfWeek >= 0 && dayOfWeek < 5) {
+      this.#calculateDailyDiscount();
+    }
+
+    if ([5, 6].includes(dayOfWeek)) {
       this.#calculateWeekendDiscount();
     }
   }
