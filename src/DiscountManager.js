@@ -30,6 +30,8 @@ class DiscountManager {
     const TOTAL_DISCOUNT = this.calculateTotalDiscount();
 
     OutputView.printTotalBenefitAmount(TOTAL_DISCOUNT);
+
+    return TOTAL_DISCOUNT;
   }
 
   printAmountAfterDiscount() {
@@ -41,6 +43,8 @@ class DiscountManager {
     }
 
     OutputView.printEstimatedPaymentAmount(result);
+
+    return result;
   }
 
   returnDiscount() {
