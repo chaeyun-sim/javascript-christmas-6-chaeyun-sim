@@ -20,6 +20,8 @@ class Badge {
   printBadge() {
     const badgeMessage = this.#badge ? this.#badge : '없음';
     OutputView.printReceivedBadge(badgeMessage);
+
+    return badgeMessage;
   }
 }
 
