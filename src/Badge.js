@@ -14,7 +14,7 @@ class Badge {
     if (discount >= 20000) return '산타';
     if (discount >= 10000) return '트리';
     if (discount >= 5000) return '별';
-    return null; // 할인이 5000 미만일 경우 뱃지 없음
+    return null;
   }
 
   printBadge() {
