@@ -34,13 +34,19 @@ class DiscountManager {
     return TOTAL_DISCOUNT;
   }
 
-  printAmountAfterDiscount() {
-    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
-    let result = this.#total - TOTAL_DISCOUNT;
+  addBonus(result) {
+    let res = result;
 
     if (this.#total >= MIN_AMOUNT_TO_GET_BONUS) {
-      result += 25000;
+      res += 25000;
     }
+
+    return res;
+  }
+
+  printAmountAfterDiscount() {
+    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
+    const result = this.addBonus(this.#total - TOTAL_DISCOUNT);
 
     OutputView.printEstimatedPaymentAmount(result);
 
