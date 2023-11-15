@@ -41,18 +41,28 @@ class DiscountCalculator {
     }
   }
 
-  #calculateDiscountByDay(dayOfWeek) {
+  #checkSpecialDiscountDay(dayOfWeek) {
     if (dayOfWeek === 0 || this.#date === CHRISTMAS) {
       this.#calculateSpecialDiscount();
     }
+  }
 
+  #checkDailyDiscountDay(dayOfWeek) {
     if (dayOfWeek >= 0 && dayOfWeek < 5) {
       this.#calculateDailyDiscount();
     }
+  }
 
+  #checkWeekendDiscountDay(dayOfWeek) {
     if ([5, 6].includes(dayOfWeek)) {
       this.#calculateWeekendDiscount();
     }
+  }
+
+  #calculateDiscountByDay(dayOfWeek) {
+    this.#checkSpecialDiscountDay(dayOfWeek);
+    this.#checkDailyDiscountDay(dayOfWeek);
+    this.#checkWeekendDiscountDay(dayOfWeek);
   }
 
   #calculateChristmasDiscount() {
@@ -80,14 +90,18 @@ class DiscountCalculator {
     let discount = 0;
 
     this.#orders.forEach(order => {
-      const [name, count] = order;
-
-      if (itemNames.includes(name)) {
-        discount = DAILY_DISCOUNT * Number(count);
-      }
+      discount += this.#calculateDiscountForOrder(order, itemNames);
     });
 
     return discount;
+  }
+
+  #calculateDiscountForOrder(order, itemNames) {
+    const [name, count] = order;
+    if (itemNames.includes(name)) {
+      return DAILY_DISCOUNT * Number(count);
+    }
+    return 0;
   }
 
   returnDiscount() {
