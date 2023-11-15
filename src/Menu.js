@@ -31,10 +31,12 @@ class Menu {
   }
 
   #buildPriceMap() {
-    this.#priceMap = this.getNamesInMenu().reduce((acc, cur, idx) => {
-      acc[cur] = this.getPricesInMenu()[idx];
-      return acc;
-    }, {});
+    this.#priceMap = {};
+    Object.values(MENU)
+      .flat()
+      .forEach(item => {
+        this.#priceMap[item.name] = item.price;
+      });
   }
 
   detailCalculation() {
@@ -42,7 +44,9 @@ class Menu {
 
     this.#ordered.forEach(item => {
       const [name, count] = item;
-      result += this.#priceMap[name] * Number(count);
+      if (this.#priceMap[name]) {
+        result += this.#priceMap[name] * Number(count);
+      }
     });
 
     return result;
@@ -58,11 +62,12 @@ class Menu {
   }
 
   printOrderedMenu(date) {
-    const ORDERED = this.#ordered.map(item => item.split('-'));
-    this.#ordered = ORDERED;
+    const orderedFormatted = this.#ordered.map(item => item.split('-'));
 
     OutputView.printPreview(date);
-    OutputView.printMenu(ORDERED);
+    OutputView.printMenu(orderedFormatted);
+
+    this.#ordered = orderedFormatted;
   }
 
   returnOrdered() {
