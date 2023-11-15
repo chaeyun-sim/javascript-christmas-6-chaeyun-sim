@@ -6,12 +6,6 @@ class Menu {
   #ordered;
   #total;
   #priceMap;
-  #menuNames = Object.values(MENU)
-    .flat()
-    .map(item => item.name);
-  #menuPrice = Object.values(MENU)
-    .flat()
-    .map(item => item.price);
 
   constructor(ordered) {
     this.#validate(ordered);
@@ -21,25 +15,37 @@ class Menu {
 
   #validate(ordered) {
     this.validator = new MenuValidator();
-    this.validator.isMenuValid(ordered, this.#menuNames);
+    this.validator.isMenuValid(ordered, this.getNamesInMenu());
+  }
+
+  getNamesInMenu() {
+    return Object.values(MENU)
+      .flat()
+      .map(item => item.name);
+  }
+
+  getPricesInMenu() {
+    return Object.values(MENU)
+      .flat()
+      .map(item => item.price);
   }
 
   #buildPriceMap() {
-    this.#priceMap = this.#menuNames.reduce((acc, cur, idx) => {
-      acc[cur] = this.#menuPrice[idx];
+    this.#priceMap = this.getNamesInMenu().reduce((acc, cur, idx) => {
+      acc[cur] = this.getPricesInMenu()[idx];
       return acc;
     }, {});
   }
 
   detailCalculation() {
-    let total = 0;
+    let result = 0;
 
     this.#ordered.forEach(item => {
       const [name, count] = item;
-      total += this.#priceMap[name] * Number(count);
+      result += this.#priceMap[name] * Number(count);
     });
 
-    return total;
+    return result;
   }
 
   calculateTotalAmount() {
