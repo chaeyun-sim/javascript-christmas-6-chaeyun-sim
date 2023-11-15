@@ -10,11 +10,10 @@ import {
 class DiscountCalculator {
   #date;
   #orders;
-  #discounts;
   constructor(date, orders, total) {
     this.#date = Number(date);
     this.#orders = orders;
-    this.#discounts = {
+    this.discounts = {
       '크리스마스 디데이 할인': 0,
       '평일 할인': 0,
       '주말 할인': 0,
@@ -36,7 +35,7 @@ class DiscountCalculator {
 
   #calculateBonusDiscount(total) {
     if (total >= MIN_AMOUNT_TO_GET_BONUS) {
-      this.#discounts['증정 이벤트'] = 25000;
+      this.discounts['증정 이벤트'] = 25000;
     }
   }
 
@@ -56,22 +55,22 @@ class DiscountCalculator {
 
   #calculateChristmasDiscount() {
     if (this.#date >= 1 && this.#date <= CHRISTMAS) {
-      this.#discounts['크리스마스 디데이 할인'] = (this.#date + 9) * 100;
+      this.discounts['크리스마스 디데이 할인'] = (this.#date + 9) * 100;
     }
   }
 
   #calculateSpecialDiscount() {
-    this.#discounts['특별 할인'] = MIN_DISCOUNT;
+    this.discounts['특별 할인'] = MIN_DISCOUNT;
   }
 
   #calculateDailyDiscount() {
-    this.#discounts['평일 할인'] = this.#calculateDiscountForItems(
+    this.discounts['평일 할인'] = this.#calculateDiscountForItems(
       MENU.desserts,
     );
   }
 
   #calculateWeekendDiscount() {
-    this.#discounts['주말 할인'] = this.#calculateDiscountForItems(MENU.mains);
+    this.discounts['주말 할인'] = this.#calculateDiscountForItems(MENU.mains);
   }
 
   #calculateDiscountForItems(items) {
@@ -79,8 +78,10 @@ class DiscountCalculator {
     let discount = 0;
 
     this.#orders.forEach(order => {
-      if (itemNames.includes(order[0])) {
-        discount = DAILY_DISCOUNT * Number(order[1]);
+      const [name, count] = order;
+
+      if (itemNames.includes(name)) {
+        discount = DAILY_DISCOUNT * Number(count);
       }
     });
 
@@ -88,7 +89,7 @@ class DiscountCalculator {
   }
 
   returnDiscount() {
-    return this.#discounts;
+    return this.discounts;
   }
 }
 
