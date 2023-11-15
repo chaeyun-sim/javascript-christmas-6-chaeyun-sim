@@ -4,9 +4,9 @@ const FormatNumbers = {
     let result = '';
     let count = 0;
 
-    for (let i = NUMBER.length - 1; i >= 0; i--) {
+    for (let i = NUMBER.length - 1; i >= 0; i -= 1) {
       result += NUMBER[i];
-      count++;
+      count += 1;
 
       if (count === 3 && i !== 0) {
         result += ',';
