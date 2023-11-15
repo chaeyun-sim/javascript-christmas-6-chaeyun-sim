@@ -15,37 +15,36 @@ class DiscountManager {
     ).returnDiscount();
   }
 
-  printDiscount() {
-    const IS_VALID =
+  #calculateIsValid() {
+    return (
       this.#total < 10000 ||
-      !Object.values(this.#discounts).reduce((a, b) => a + b);
-    OutputView.printBenefits(this.#discounts, IS_VALID);
+      !Object.values(this.#discounts).reduce((a, b) => a + b)
+    );
   }
 
-  calculateTotalDiscount() {
+  #calculateTotalDiscount() {
     return Object.values(this.#discounts).reduce((a, b) => a + b);
   }
 
+  addBonus(result) {
+    return result + (this.#total >= MIN_AMOUNT_TO_GET_BONUS ? 25000 : 0);
+  }
+
+  printDiscount() {
+    const isValid = this.#calculateIsValid();
+    OutputView.printBenefits(this.#discounts, isValid);
+  }
+
   printTotalDiscountAmount() {
-    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
+    const TOTAL_DISCOUNT = this.#calculateTotalDiscount();
 
     OutputView.printTotalBenefitAmount(TOTAL_DISCOUNT);
 
     return TOTAL_DISCOUNT;
   }
 
-  addBonus(result) {
-    let res = result;
-
-    if (this.#total >= MIN_AMOUNT_TO_GET_BONUS) {
-      res += 25000;
-    }
-
-    return res;
-  }
-
   printAmountAfterDiscount() {
-    const TOTAL_DISCOUNT = this.calculateTotalDiscount();
+    const TOTAL_DISCOUNT = this.#calculateTotalDiscount();
     const result = this.addBonus(this.#total - TOTAL_DISCOUNT);
 
     OutputView.printEstimatedPaymentAmount(result);
@@ -54,7 +53,7 @@ class DiscountManager {
   }
 
   returnDiscount() {
-    return this.calculateTotalDiscount();
+    return this.#calculateTotalDiscount();
   }
 }
 
