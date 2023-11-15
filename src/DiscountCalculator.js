@@ -23,12 +23,14 @@ class DiscountCalculator {
     this.#calculateDiscounts(total);
   }
 
-  #calculateDiscounts(total) {
-    const dayOfWeek = new Date(2023, 11, this.#date).getDay();
+  getDayOfWeek() {
+    return new Date(2023, 11, this.#date).getDay();
+  }
 
+  #calculateDiscounts(total) {
     if (total >= MIN_AMOUNT) {
       this.#calculateBonusDiscount(total);
-      this.#calculateDiscountByDay(dayOfWeek);
+      this.#calculateDiscountByDay(this.getDayOfWeek());
       this.#calculateChristmasDiscount();
     }
   }
